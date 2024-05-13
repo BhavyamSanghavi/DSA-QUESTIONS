@@ -1,0 +1,23 @@
+class Solution
+{
+public:
+    int maximumEnergy(vector<int> &e, int k)
+    {
+        int ans = INT_MIN, temp, n = e.size();
+        int sum = 0, i = 0, j = i;
+        for (i = 0; i < n;)
+        {
+            sum += e[j];
+            if (j + k < n)
+                j = j + k;
+            else
+            {
+                ans = max(ans, sum);
+                sum = 0;
+                i++;
+                j = i;
+            }
+        }
+        return ans;
+    }
+};
