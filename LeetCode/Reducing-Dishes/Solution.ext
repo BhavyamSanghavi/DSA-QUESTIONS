@@ -1,0 +1,4 @@
+Input: satisfaction = [-1,-8,0,5,-9]
+Output: 14
+Explanation: After Removing the second and last dish, the maximum total like-time coefficient will be equal to (-1*1 + 0*2 + 5*3 = 14).
+Each dish is prepared in one unit of time.
