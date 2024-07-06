@@ -1,0 +1,22 @@
+class Solution {
+public:
+    long long maximumPoints(vector<int>& enemy, int currentEnergy) {
+    int mini=1e9,index=0;
+    for(int i=0;i<enemy.size();i++)
+    {
+        if(mini>enemy[i])
+        {
+            index=i;
+            mini=enemy[i];
+        }
+    }
+    long long sum=0;
+    if(currentEnergy<mini) return 0;
+    for(int i=0;i<enemy.size();i++)
+    {
+        if(i!=index) sum+=enemy[i];
+    }
+    return ((sum+currentEnergy)/mini);
+}
+
+};
