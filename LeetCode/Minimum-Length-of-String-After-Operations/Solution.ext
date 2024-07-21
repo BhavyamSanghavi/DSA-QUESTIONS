@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int minimumLength(string s) {
+        int ans=s.size();
+        unordered_map<char,int>m;
+        for(auto i:s) m[i]++;
+        for(auto i:m)
+        {
+            while(i.second>=3)
+            {
+                ans-=2;
+                i.second-=2;
+            }
+        }
+        return ans;
+    }
+};
