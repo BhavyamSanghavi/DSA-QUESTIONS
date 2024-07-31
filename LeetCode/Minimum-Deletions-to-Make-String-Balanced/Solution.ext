@@ -1,5 +1,23 @@
-Input: s = "aababbab"
-Output: 2
-Explanation: You can either:
-Delete the characters at 0-indexed positions 2 and 6 ("aababbab" -> "aaabbb"), or
-Delete the characters at 0-indexed positions 3 and 6 ("aababbab" -> "aabbbb").
+class Solution {
+public:
+    int minimumDeletions(string s) {
+    int n=s.length();
+    vector<int> dp(n+1,0);
+    int count_b=0;
+    //dp(i) gives the number of characters to be deleted to make substring s(0,i) valid
+    for(int i=0;i<n;i++)
+    {
+        //it is always valid to append b at the 
+        if (s[i]=='b') dp[i+1]=dp[i],count_b++;
+        else
+        {
+            //two cases arise
+            //case1: we remove a
+            //case2: keep a, then count_b number of characters will need to be removed
+            dp[i+1]=min(dp[i]+1,count_b);
+        }
+    }
+    return dp[n];
+    
+}
+};
