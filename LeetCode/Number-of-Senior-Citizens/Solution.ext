@@ -1,3 +1,12 @@
-Input: details = ["7868190130M7522","5303914400F9211","9273338290F4010"]
-Output: 2
-Explanation: The passengers at indices 0, 1, and 2 have ages 75, 92, and 40. Thus, there are 2 people who are over 60 years old.
+class Solution {
+public:
+    int countSeniors(vector<string>& details) {
+        int ans=0;
+        for(auto i:details)
+        {
+            if(i[11]>'6') ans++;
+            else if(i[11]=='6' && i[12]>'0') ans++;
+        }
+        return ans;
+    }
+};
