@@ -1,8 +1,16 @@
-Input: nums = [0,1,0,1,1,0,0]
-Output: 1
-Explanation: Here are a few of the ways to group all the 1's together:
-[0,0,1,1,1,0,0] using 1 swap.
-[0,1,1,1,0,0,0] using 1 swap.
-[1,1,0,0,0,0,1] using 2 swaps (using the circular property of the array).
-There is no way to group all 1's together with 0 swaps.
-Thus, the minimum number of swaps required is 1.
+class Solution {
+public:
+    int minSwaps(vector<int>& nums) {
+    int ones = 0, x = 0, onesInWindow = 0, i = 0, n = nums.size();
+    ones = count(begin(nums), end(nums), 1);
+    vector<int> nums2(n * 2);
+    for (i = 0; i < n * 2; i++)
+        nums2[i] = nums[i % n];
+    for (i = 0; i < n * 2; i++) {
+        if (i >= ones && nums2[i - ones] == 1) x--;
+        if (nums2[i] == 1) x++;
+        onesInWindow = max(x, onesInWindow);
+    }
+    return ones - onesInWindow;
+}
+};
