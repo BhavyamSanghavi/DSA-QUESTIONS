@@ -15,7 +15,6 @@ struct Job
 
 // } Driver Code Ends
 /*
-
 struct Job 
 { 
     int id;	 // Job Id 
@@ -27,37 +26,30 @@ struct Job
 class Solution 
 {
     public:
-    //Function to find the maximum profit and the number of jobs done.
-    vector<int> JobScheduling(Job arr[], int n) 
-    { 
-        // your code here
-        int maxi=0;
-        priority_queue<pair<int,int>>maxHeap;
-        for(int i=0;i<n;i++){
-            maxHeap.push({arr[i].profit,arr[i].dead});
-            maxi=max(maxi,arr[i].dead);
+    static bool comp(Job &job1, Job &job2){
+        return job1.profit > job2.profit;
+    }
+    vector<int> JobScheduling(Job arr[], int n){ 
+        sort(arr, arr+n, comp);
+        int profit = 0, cnt = 0, maxtime = -1;
+        
+        for(int i=0; i<n; i++){
+            maxtime = max(maxtime, arr[i].dead);
         }
         
-        vector<int>visited(n,0);
-        int count=0;
-        int totalProfit=0;
-        while(!maxHeap.empty() && count<n){
-            int profit=maxHeap.top().first;
-            int deadline=maxHeap.top().second-1;
-            maxHeap.pop();
+        vector<int> jobs(maxtime+1, -1);
+        for(int i=0; i<n; i++){
             
-            while(deadline>=0 && visited[deadline]==1){
-                deadline--;
+            for(int j = arr[i].dead; j > 0; j--){
+                if(jobs[j] == -1){
+                    cnt++;
+                    jobs[j] = arr[i].id;
+                    profit += arr[i].profit;
+                    break;
+                }
             }
-            
-            if(deadline>=0){
-                count++;
-                visited[deadline]=1;
-                totalProfit+=profit;
-            }  
         }
-        
-        return {count,totalProfit};
+        return {cnt, profit};
     } 
 };
 
