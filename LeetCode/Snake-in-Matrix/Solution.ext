@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int finalPositionOfSnake(int n, vector<string>& commands) {
+        int row=0,j=0;
+        for(auto i:commands)
+        {
+            if(i=="UP") row--;
+            else if(i=="DOWN") row++;
+            else if(i=="LEFT") j--;
+            else j++;
+        }
+        return (row*n)+j;
+    }
+};
