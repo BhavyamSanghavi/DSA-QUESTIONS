@@ -9,7 +9,8 @@ using namespace std;
 class Solution {
   public:
     // Function to find the sum of contiguous subarray with maximum sum.
-    long long maxSubarraySum(vector<int> &arr) {
+    int maxSubarraySum(vector<int> &arr) {
+        // code here...
         int n=arr.size();
         for(int i=1;i<n;i++)
         {
