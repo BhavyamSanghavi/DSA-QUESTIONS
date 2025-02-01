@@ -1,0 +1,15 @@
+class Solution {
+public:
+
+int getParity(int n)
+{
+    return n%2==0;
+}
+    bool isArraySpecial(vector<int>& nums) {
+        for(int i=0;i<nums.size()-1;i++)
+        {
+            if(getParity(nums[i])==getParity(nums[i+1])) return false;
+        }
+        return true;
+    }
+};
