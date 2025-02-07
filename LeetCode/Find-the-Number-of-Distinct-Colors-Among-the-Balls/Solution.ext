@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> queryResults(int limit, vector<vector<int>>& queries) {
+        unordered_map<int,int>item;     // item->color
+        unordered_map<int,unordered_set<int>>s;        //color->item
+        vector<int>ans;
+
+        for(auto query:queries)
+        {
+            int ball=query[0], color=query[1];
+            if(item.find(ball)!=item.end())
+            {
+                s[item[ball]].erase(ball);
+                if(s[item[ball]].size()==0) s.erase(item[ball]);
+                s[color].insert(ball);
+                item[ball]=color;
+            }
+            else
+            {
+                s[color].insert(ball);
+                item[ball]=color;
+            }
+            ans.push_back(s.size());
+        }
+        return ans;
+    }
+};
