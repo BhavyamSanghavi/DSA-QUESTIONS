@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string>s;
+        int i=0;
+        while(i<path.size())
+        {
+            if(path[i]=='/')
+            {
+                i++;
+                if(i>=path.size()) break;
+                string dir="";
+                while(i<path.size() && path[i]=='/') i++;
+                if(i>=path.size()) break;
+                while(i<path.size() && path[i]!='/') dir+=path[i++];
+
+                if(dir==".") continue;
+                else if(dir==".."){
+                    if(s.size()>0)
+                    s.pop_back();
+                }  
+                else  s.push_back(dir);
+                
+            }
+        }
+        string ans="/";
+        for(auto i:s)
+        {
+            // string t=s.top(); s.pop();
+            ans+=i+'/';
+        }
+        if(ans.size()>1)
+        ans.pop_back();
+        return ans;
+    }
+};
