@@ -1,47 +1,50 @@
 //{ Driver Code Starts
+// Initial Template for C++
 #include <bits/stdc++.h>
 using namespace std;
 
 
 // } Driver Code Ends
+
 class Solution {
   public:
-  
-  int solve(string& s, string& t, int i, int j,vector<vector<int>>& dp)
-  {
-        if(i>=s.size()) return t.size()-j;
-        if(j>=t.size()) return s.size()-i;
+    // Function to compute the edit distance between two strings
+    int solve(string & s1, string & s2, int i, int j,vector<vector<int>>& dp)
+    {
+        if(i>=s1.size()) return s2.size()-j;
+        if(j>=s2.size()) return s1.size()-i;
         if(dp[i][j]!=-1) return dp[i][j];
+        if(s1[i]==s2[j]) return solve(s1,s2,i+1,j+1,dp);
         
-        if(s[i]==t[j])
-            return dp[i][j]=solve(s,t,i+1,j+1,dp);
-        int ins=1+solve(s,t,i,j+1,dp);
-        int rem=1+solve(s,t,i+1,j,dp);
-        int rep=1+solve(s,t,i+1,j+1,dp);
+        int op1=1+solve(s1,s2,i+1,j,dp);
+        int op2=1+solve(s1,s2,i,j+1,dp);
+        int op3=1+solve(s1,s2,i+1,j+1,dp);
         
-        return dp[i][j]=min(ins,min(rem,rep));
-        // return dp[i][j]=ins+rem+rep;
-  }
-  
-    int editDistance(string s, string t) {
-        // Code here
-        int n=s.size(), m=t.size();
-        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
-        return solve(s,t,0,0,dp);
+        return dp[i][j]=min({op1,op2,op3});
+    }
+    int editDistance(string& s1, string& s2) {
+        vector<vector<int>>dp(s1.size()+1,vector<int>(s2.size()+1,-1));
+        return solve(s1,s2,0,0,dp);
     }
 };
 
 
 //{ Driver Code Starts.
+
 int main() {
+
     int T;
     cin >> T;
+    cin.ignore();
     while (T--) {
-        string s, t;
-        cin >> s >> t;
+        string s1;
+        getline(cin, s1);
+        string s2;
+        getline(cin, s2);
         Solution ob;
-        int ans = ob.editDistance(s, t);
+        int ans = ob.editDistance(s1, s2);
         cout << ans << "\n";
+        cout << "~" << endl;
     }
     return 0;
 }
