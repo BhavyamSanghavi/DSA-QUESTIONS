@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int countDays(int days, vector<vector<int>>& meet) {
+        sort(meet.begin(),meet.end());
+        vector<vector<int>>mat;
+        mat.push_back(meet[0]);
+        for(int i=1;i<meet.size();i++)
+        {
+            if(mat.back()[1]>=meet[i][0])
+            {
+                mat.back()[1]=max(mat.back()[1],meet[i][1]);
+            }
+            else
+            {
+                mat.push_back(meet[i]);
+            }
+        }
+        int ans=mat[0][0]-1;
+        for(int i=1;i<mat.size();i++)
+        {
+            ans+=mat[i][0]-mat[i-1][1]-1;
+        }
+        ans+=days-mat[mat.size()-1][1];
+        return ans;
+    }
+};
