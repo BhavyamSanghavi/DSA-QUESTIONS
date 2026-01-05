@@ -1,0 +1,20 @@
+1class Solution {
+2public:
+3    string largestEven(string s) {
+4        // Iterate backwards from the end of the string to find the rightmost '2'.
+5        // Since the string contains only '1' and '2', any valid even number must end in '2'.
+6        // To maximize the number, we want the longest possible string.
+7        // The longest subsequence ending at a specific index i is simply the prefix s[0...i].
+8        // Since s consists of non-zero digits, a longer string represents a larger number.
+9        // Therefore, the prefix ending at the last occurrence of '2' is the largest possible even number.
+10        for (int i = s.length() - 1; i >= 0; --i) {
+11            if (s[i] == '2') {
+12                return s.substr(0, i + 1);
+13            }
+14        }
+15        
+16        // If no '2' is found, it's impossible to form an even number.
+17        return "";
+18    }
+19};
+20
