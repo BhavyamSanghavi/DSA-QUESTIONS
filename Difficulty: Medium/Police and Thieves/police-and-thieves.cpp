@@ -1,19 +1,28 @@
 class Solution {
   public:
+    int getNextPerson(vector<char>& arr, int i, char person)
+    {
+        while(i<arr.size() && arr[i]!=person) i++;
+        if(i==arr.size()) return -1;
+        return i;
+    }
     int catchThieves(vector<char> &arr, int k) {
-        // Code here
-        queue<int>q;
-        int ans = 0, n= arr.size();
-        
-        for(int i = 0;i<n;i++)
-            if(arr[i]=='T') q.push(i);
-            
-        for(int i = 0;i<n;i++)
-            if(arr[i]=='P'){
-                while(!q.empty()&& q.front()<=i+k && abs(i-q.front())>k) q.pop();
-                if(!q.empty() && q.front()<=i+k){ ans+= 1; q.pop();}
+        int totalThieves=0;
+        int currPolice=getNextPerson(arr,0,'P');
+        int currThief=getNextPerson(arr,0,'T');
+        while(currPolice!=-1 && currThief!=-1)
+        {
+            if(abs(currPolice-currThief)<=k)
+            {
+                totalThieves++;
+                currPolice=getNextPerson(arr,currPolice+1,'P');
+                currThief=getNextPerson(arr,currThief+1,'T');
             }
-            
-        return ans;
+            else if(currPolice<currThief)
+                currPolice=getNextPerson(arr,currPolice+1,'P');
+            else
+                currThief=getNextPerson(arr,currThief+1,'T');
+        }
+        return totalThieves;
     }
 };
