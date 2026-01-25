@@ -2,19 +2,18 @@
 2public:
 3    vector<int> rotateElements(vector<int>& nums, int k) {
 4        vector<int>positive;
-5        for(int i:nums)
-6            if(i>=0) positive.push_back(i);
-7        vector<int>dup=positive;
-8        int n=positive.size();
-9        for(int i=0;i<positive.size();i++)
-10        {
-11            dup[i]=positive[((i+k)%n)];
-12        }
-13        int ind=0;
-14        for(int i=0;i<nums.size();i++)
-15        {
+5        
+6        for(int i:nums)
+7            if(i>=0) positive.push_back(i);
+8        
+9        vector<int>dup=positive;
+10        int n=positive.size();
+11        for(int i=0;i<positive.size();i++)
+12            dup[i]=positive[((i+k)%n)];
+13        
+14        int ind=0;
+15        for(int i=0;i<nums.size();i++)
 16            if(nums[i]>=0) nums[i]=dup[ind++];
-17        }
-18        return nums;
-19    }
-20};
+17        return nums;
+18    }
+19};
