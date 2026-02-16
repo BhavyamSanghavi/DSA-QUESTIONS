@@ -1,0 +1,1 @@
+fn(i) = maximum money we can rob starting from index i
