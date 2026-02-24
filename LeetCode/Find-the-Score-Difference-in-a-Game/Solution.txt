@@ -1,0 +1,24 @@
+1class Solution:
+2    def scoreDifference(self, nums):
+3        first = 0
+4        second = 0
+5        
+6        active = 0  # 0 -> first player, 1 -> second player
+7        
+8        for i in range(len(nums)):
+9            
+10            # Rule 1: swap if odd
+11            if nums[i] % 2 == 1:
+12                active ^= 1
+13            
+14            # Rule 2: swap every 6th game (index 5, 11, 17...)
+15            if i % 6 == 5:
+16                active ^= 1
+17            
+18            # Give points to active player
+19            if active == 0:
+20                first += nums[i]
+21            else:
+22                second += nums[i]
+23        
+24        return first - second
