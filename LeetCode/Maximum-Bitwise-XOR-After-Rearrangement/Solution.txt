@@ -1,0 +1,26 @@
+1class Solution:
+2    def maximumXor(self, s: str, t: str) -> str:
+3        # Count the available 0s and 1s in string t
+4        ones_t = t.count('1')
+5        zeros_t = len(t) - ones_t # Faster than counting '0' separately
+6        
+7        result = []
+8        
+9        # Greedily build the maximum XOR string from left to right
+10        for char in s:
+11            if char == '1':
+12                if zeros_t > 0:
+13                    result.append('1')
+14                    zeros_t -= 1
+15                else:
+16                    result.append('0')
+17                    ones_t -= 1
+18            else: # char == '0'
+19                if ones_t > 0:
+20                    result.append('1')
+21                    ones_t -= 1
+22                else:
+23                    result.append('0')
+24                    zeros_t -= 1
+25                    
+26        return "".join(result)
