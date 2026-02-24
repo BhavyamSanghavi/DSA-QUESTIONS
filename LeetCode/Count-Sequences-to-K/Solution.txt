@@ -1,0 +1,76 @@
+1#include <vector>
+2#include <cmath>
+3#include <cstring>
+4
+5using namespace std;
+6
+7class Solution {
+8    long long dp[20][80][40][40];
+9    int n;
+10    vector<int> v2_arr, v3_arr, v5_arr;
+11
+12    long long solve(int i, int c2, int c3, int c5) {
+13        // Pruning: if the required factors exceed what the remaining elements can provide
+14        if (abs(c2) > (n - i) * 2) return 0;
+15        if (abs(c3) > (n - i)) return 0;
+16        if (abs(c5) > (n - i)) return 0;
+17
+18        // Base Case
+19        if (i == n) {
+20            return (c2 == 0 && c3 == 0 && c5 == 0) ? 1 : 0;
+21        }
+22
+23        // Memoization check (offsetting negative values so they fit in array indices)
+24        if (dp[i][c2 + 40][c3 + 20][c5 + 20] != -1) {
+25            return dp[i][c2 + 40][c3 + 20][c5 + 20];
+26        }
+27
+28        long long ans = 0;
+29        int v2 = v2_arr[i];
+30        int v3 = v3_arr[i];
+31        int v5 = v5_arr[i];
+32
+33        // 1. Multiply
+34        ans += solve(i + 1, c2 - v2, c3 - v3, c5 - v5);
+35        // 2. Divide
+36        ans += solve(i + 1, c2 + v2, c3 + v3, c5 + v5);
+37        // 3. Leave unchanged
+38        ans += solve(i + 1, c2, c3, c5);
+39
+40        return dp[i][c2 + 40][c3 + 20][c5 + 20] = ans;
+41    }
+42
+43public:
+44    long long countSequences(vector<int>& nums, long long k) {
+45        n = nums.size();
+46        
+47        // Factorize k
+48        long long temp = k;
+49        int k2 = 0, k3 = 0, k5 = 0;
+50        while (temp > 0 && temp % 2 == 0) { k2++; temp /= 2; }
+51        while (temp > 0 && temp % 3 == 0) { k3++; temp /= 3; }
+52        while (temp > 0 && temp % 5 == 0) { k5++; temp /= 5; }
+53
+54        // If k has prime factors other than 2, 3, or 5
+55        if (temp != 1) return 0;
+56        
+57        // If the target exponents are theoretically impossible to reach
+58        if (k2 > 38 || k3 > 19 || k5 > 19) return 0;
+59
+60        v2_arr.resize(n, 0);
+61        v3_arr.resize(n, 0);
+62        v5_arr.resize(n, 0);
+63
+64        // Factorize each element in the array
+65        for (int i = 0; i < n; i++) {
+66            int val = nums[i];
+67            while (val % 2 == 0) { v2_arr[i]++; val /= 2; }
+68            while (val % 3 == 0) { v3_arr[i]++; val /= 3; }
+69            while (val % 5 == 0) { v5_arr[i]++; val /= 5; }
+70        }
+71
+72        memset(dp, -1, sizeof(dp));
+73        return solve(0, k2, k3, k5);
+74    }
+75};
+76
