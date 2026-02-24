@@ -1,0 +1,8 @@
+1class Solution(object):
+2    def firstUniqueFreq(self, nums):
+3        c = Counter(nums)
+4        f = Counter(c.values())
+5        for x in nums:
+6            if f[c[x]] == 1:
+7                return x
+8        return -1
