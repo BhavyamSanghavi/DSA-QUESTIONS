@@ -1,0 +1,1 @@
+return  amount[2] + count;
