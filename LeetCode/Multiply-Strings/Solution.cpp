@@ -1,0 +1,1 @@
+ vector<int> num(n + m, 0)
