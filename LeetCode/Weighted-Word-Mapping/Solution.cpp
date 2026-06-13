@@ -1,27 +1,14 @@
-class Solution:
-    def mapWordWeights(self, words: List[str], weights: List[int]) -> str:
-        h_map = {}
-        lett_str = ['abcdefghijklmnopqrstuvwxyz']
-        lett = list(*lett_str)
-        for i in range(len(lett)):
-           h_map[lett[i]] = weights[i]
-        #for i in range(len(weights))
-        temp = []
-        temp_value=0
-        for word in words:
-            temp_value=0
-            for letter in word:
-                temp_value = temp_value + h_map[letter]
-            temp.append(temp_value%26)
-
-        #return temp
-        lett_str2 = ['zyxwvutsrqponmlkjihgfedcba']
-        lett2 = list(*lett_str2)
-        result = []
-        for l in range(len(temp)):
-             result.append(lett2[temp[l]])
-
-        #return result
-        return ''.join(result)
-         #   h_map()
-        
+1class Solution {
+2public:
+3    string mapWordWeights(vector<string>& words, vector<int>& weights) {
+4        string ans;
+5        for(string s:words)
+6        {
+7            int cnt=0;
+8            for(int i=0;i<s.size();i++)
+9                cnt+=weights[s[i]-'a'];
+10            ans+=('a'+(25-(cnt%26)));
+11        }
+12        return ans;
+13    }
+14};
