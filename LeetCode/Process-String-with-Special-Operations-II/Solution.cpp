@@ -1,23 +1,24 @@
-// Intution: the result char must come from exisiting chars/letters in s
-// So: we can simulate the process backward to find the kth char in s.
-// T: O(N), S: O(1). Approach:
-// 1. -> get total length of result n.
-// 2. <- get the kth char (backward simulation).
-char processStr(const string& s, long k, long n = 0) {
-    for(const char& c : s) // 1. -> get total length of result n
-        if(isalpha(c)) ++n; // append
-        else if(c=='#') n*=2; // dup
-        else if(c=='*' && n) --n; // remove
-    if(k>=n) return '.'; // out of bound
-    for(int i = s.size()-1; i>=0; --i) { // 2. <- get the kth char (backward simulation)
-        char c = s[i];
-        if(isalpha(c)) {
-            if(--n==k) return c; // got the char
-        }else if(c=='#') { // undo dup: dedup
-            n/=2;
-            if(k>=n) k-=n; // cut the first half
-        }else if(c=='%') k = n-1-k; // undo reverse: mirror k
-        else if(c=='*' && n) ++n; // undo remove
-    }
-    return '.';
-}
+1class Solution {
+2public:
+3    char processStr(string s, long long k) {
+4        long long int n=0;
+5        for(char i:s)
+6            if(i>='a' && i<='z') n++;
+7            else if(i=='#') n*=2;
+8            else if(i=='*' && n>0) n--;
+9        if(k>=n) return '.';
+10
+11        for(int i=s.size()-1;i>=0;i--)
+12        {
+13            if(isalpha(s[i]) && --n==k) return s[i];
+14            else if(s[i]=='#')
+15            {
+16                n/=2;
+17                if(k>=n) k-=n;
+18            }
+19            else if(s[i]=='%') k=n-1-k;
+20            else if(s[i]=='*' && n>0) n++;
+21        }
+22        return '.';
+23    }
+24};
