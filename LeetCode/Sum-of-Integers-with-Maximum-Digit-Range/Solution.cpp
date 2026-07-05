@@ -1,0 +1,1 @@
+maxRange = max(maxRange, digitRange(num));
