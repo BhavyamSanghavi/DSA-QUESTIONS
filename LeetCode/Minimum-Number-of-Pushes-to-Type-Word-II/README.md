@@ -33,7 +33,7 @@ It can be shown that no other mapping can provide a lower cost.
 
 Example 2:
 
-[https://assets.leetcode.com/uploads/2023/12/26/keypadv2e2.png]
+[https://assets.leetcode.com/uploads/2024/08/20/edited.png]
 
 
 Input: word = "xyzxyzxyzxyz"
